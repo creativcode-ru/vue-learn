@@ -6,13 +6,29 @@
 
     <!-- Vue.js версия для разработки, отображает полезные предупреждения в консоли -->
     <script src="https://unpkg.com/vue@3"></script>
+
+    <style>
+        .container {
+            width: 640px;
+            margin: 0 auto;
+        }
+        .center {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Ютуб плеер</h1>
-    <p>Ускоряем загрузку страницы. 
-    Изначально грузится только картинка, а при нажатии - грузится сам плеер. 
-    Позволяет добавить много плееров на страницу</p>
-    <div id="app" style="width:640px; margin:0 auto;" >
+    <div class="container">
+        <h1 class="center">Ютуб плеер</h1>
+        <p>
+            Ускоряем загрузку страницы.
+            Изначально грузится только картинка, а при нажатии - грузится сам плеер.
+            Позволяет добавить много плееров на страницу.
+            <br /><br />
+        </p>
+    </div>
+    
+    <div id="app" class="container">
 
         <yt-player video="tTR5zbVvrf4"></yt-player>
     </div>
@@ -28,7 +44,7 @@
             template: "#yt-player",
             data: function () {
                 return {
-                    seen: true 
+                    seen: true
                 }
             },
             computed: {
