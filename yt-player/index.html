@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Ютуб плеер</title>
+
+    <!-- Vue.js версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+    <h1>Ютуб плеер</h1>
+
+    <div id="app" style="width:640px; margin:0 auto;" >
+
+        <yt-player video="tTR5zbVvrf4"></yt-player>
+    </div>
+
+    <script type="vue-template" id="yt-player">
+        <img v-if="seen" v-on:click.once="seen=false" class="img-fluid" :src="img" alt="" style="width:640px;" />
+        <iframe v-else width="640" height="360" :src="youtube" allow="autoplay" frameborder="0" allowfullscreen></iframe>
+    </script>
+
+    <script>
+        //https://blog.logrocket.com/definitive-guide-vue-3-components/
+        const YtPlayer = {
+            template: "#yt-player",
+            data: function () {
+                return {
+                    seen: true 
+                }
+            },
+            computed: {
+                img() {
+                    return 'https://i.ytimg.com/vi/' + this.video + '/hq720.jpg'
+                },
+                youtube() {
+                    return 'https://www.youtube.com/embed/' + this.video + '/?rel=0&autoplay=1'
+                },
+            },
+            props: ['video'],
+
+        };
+
+        Vue.createApp({
+            components: {
+                'yt-player': YtPlayer,
+            },
+        }).mount('#app')
+    </script>
+
+</body>
+</html>
