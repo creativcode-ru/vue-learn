@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "VueLearn", "http://localhost:65409", "{1B5F5741-2027-433F-8832-6F312FC2A95F}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_65409"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\..\Documents\My Web Sites\VueLearn\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_65409\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_65409"
+		Release.AspNetCompiler.PhysicalPath = "..\..\..\Documents\My Web Sites\VueLearn\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_65409\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\..\..\Documents\My Web Sites\VueLearn\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B5F5741-2027-433F-8832-6F312FC2A95F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B5F5741-2027-433F-8832-6F312FC2A95F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05B85371-8CA7-4242-B5E0-2B8222832241}
+	EndGlobalSection
+EndGlobal
