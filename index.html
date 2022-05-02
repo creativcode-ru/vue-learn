@@ -3,8 +3,56 @@
 <head>
     <meta charset="utf-8" />
     <title>Vue Learn</title>
+
+    <!-- Vue.js версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://unpkg.com/vue@3"></script>
 </head>
 <body>
     <h1>Vue Learn</h1>
+
+    <div id="app">
+        {{ message }}
+
+        <span v-if="seen" v-on:click.once="seen=false" style="color:green;">Нажми меня один разок...</span>
+        <span v-if="!seen" style="color:aqua;">У вас спина белая)</span>
+
+        <br /><br />
+        <click-text text="Тут тоже" newtext="Отлично!"></click-text>
+        <br /><br />
+        <click-text text="И ещё разок" newtext="Это компонент)"></click-text>
+    </div>
+
+    <script type="vue-template" id="click-text">
+        <span v-if="seen" v-on:click.once="seen=false" style="color:green;" >{{text}}</span>
+        <span v-if="!seen" style="color:aqua;">{{newtext}}</span>
+    </script>
+
+    <script>
+        //https://blog.logrocket.com/definitive-guide-vue-3-components/
+        const ClickText = {
+            template: "#click-text",
+            data: function () {
+                return {
+                    seen: true //собственные данные компонента
+                }
+            },
+            props: ['text', 'newtext'],
+            //props: {text: '', newtext:''},
+            
+        };
+
+        Vue.createApp({
+            data() {
+                return {
+                    message: 'Hello Vue!',
+                    seen: true
+                }
+            },
+            components: {
+                'click-text': ClickText,
+            },
+        }).mount('#app')
+    </script>
+
 </body>
 </html>
