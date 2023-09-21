@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>04</title>
+
+    <!-- Vue.js версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="event-handling">
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">Перевернуть сообщение</button>
+    </div>
+
+    <script>
+        const EventHandling = {
+            data() {
+                return {
+                    message: 'Привет, Vue.js!'
+                }
+            },
+            methods: {
+                reverseMessage() {
+                    this.message = this.message
+                        .split('')
+                        .reverse()
+                        .join('')
+                }
+            }
+        }
+
+        Vue.createApp(EventHandling).mount('#event-handling')
+    </script>
+
+</body>
+</html>
