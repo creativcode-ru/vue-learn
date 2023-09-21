@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>06</title>
+
+    <!-- Vue.js версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+
+        /*
+            анимация с помощью страндартныйх классаов и обертки transition
+            https://v3.ru.vuejs.org/ru/guide/transitions-enterleave.html#%D0%B0%D0%BD%D0%B8%D0%BC%D0%B0%D1%86%D0%B8%D1%8F-%D0%BE%D0%B4%D0%B8%D0%BD%D0%BE%D1%87%D0%BD%D0%BE%D0%B3%D0%BE-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D0%B0-%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82%D0%B0
+
+        */
+
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity 0.7s ease;
+        }
+
+        .fade-enter-from,
+        .fade-leave-to {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="conditional-rendering" class="demo">
+        <span v-if="seen" >Сейчас меня видно</span>
+        <transition name="fade">
+            <span v-if="seen"> привет </span>
+        </transition>
+        <button v-on:click="seen=!seen">toggle</button>
+    </div>
+    
+
+    <script>
+        const ConditionalRendering = {
+            data() {
+                return {
+                    seen: true
+                }
+            }
+        }
+
+            Vue.createApp(ConditionalRendering).mount('#conditional-rendering')
+    </script>
+
+</body>
+</html>
