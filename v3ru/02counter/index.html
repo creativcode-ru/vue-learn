@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Counter</title>
+
+    <!-- Vue.js версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+       
+    </style>
+</head>
+<body>
+    <div id="counter">
+        Счётчик: {{ counter }}, и как его остановить?
+    </div>
+
+    <script>
+        const Counter = {
+            data() {
+                return {
+                    counter: 0
+                }
+            },
+            mounted() {
+                setInterval(() => {
+                    this.counter++
+                }, 1000)
+            }
+        }
+
+        Vue.createApp(Counter).mount('#counter')
+    </script>
+</body>
+</html>
