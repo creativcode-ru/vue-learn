@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>bind attribute</title>
+
+    <!-- Vue.js версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="bind-attribute" class="demo">
+        <span v-bind:title="message">
+            Наведи на меня курсор на пару секунд, чтобы
+            увидеть динамически связанное значение title!
+        </span>
+    </div>
+            <!--
+                Атрибут v-bind называется директивой.<br />
+            Директивы именуются с префикса v-, который обозначает, что это специальные атрибуты Vue, и, как уже можно догадаться, они добавляют особое реактивное поведение отрисованному DOM.<br />
+            В примере выше директива говорит «сохраняй значение title этого элемента актуальным при изменении свойства message в текущем активном экземпляре».
+                -->
+
+    <script>
+        const AttributeBinding = {
+            data() {
+                return {
+                    message: 'Страница загружена ' + new Date().toLocaleString()
+                }
+            }
+        }
+
+        Vue.createApp(AttributeBinding).mount('#bind-attribute')
+    </script>
+
+</body>
+</html>
