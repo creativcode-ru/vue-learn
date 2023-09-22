@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>08</title>
+
+    <!-- Vue.js версия для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="components-app" class="demo">
+        <ol>
+            <!--
+                     ol - цифровой список
+
+                  Now we provide each todo-item with the todo object
+                  it's representing, so that its content can be dynamic.
+                  We also need to provide each component with a "key",
+                  which will be explained later.
+
+    Теперь мы снабжаем каждый элемент todo объектом todo.
+    он представляет, поэтому его содержимое может быть динамичным.
+    Нам также необходимо предоставить каждому компоненту «ключ»,
+    что будет объяснено позже.
+
+
+                -->
+            <todo-item v-for="item in groceryList"
+                       v-bind:todo="item"
+                       v-bind:key="item.id"></todo-item>
+        </ol>
+    </div>
+
+    <script>
+        const ComponentsApp = { //задаем данные и дентификаторы для списка groceryList
+            data() {
+                return {
+                    groceryList: [
+                        { id: 0, text: 'Vegetables' },
+                        { id: 1, text: 'Cheese' },
+                        { id: 2, text: 'Whatever else humans are supposed to eat' }
+                    ]
+                }
+            }
+        }
+
+        const app = Vue.createApp(ComponentsApp) //создаем приложение на основе корневого компонента, или любого компонента приложения
+
+        app.component('todo-item', { //объект todo который принимает компонент todo-item, в цикле представлен переменной item
+            props: ['todo'],
+            template: `<li>{{ todo.text }}</li>`
+        })
+
+        app.mount('#components-app') //звязываем корневой компонент с HTML разметкой
+    </script>
+
+</body>
+</html>
