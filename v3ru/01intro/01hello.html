@@ -21,18 +21,32 @@
 </head>
 <body>
     <div id="hello-vue" class="demo">
-        {{message}}
+        <input type="text" v-on:input="setMessage" />
+        <p>{{message}}</p>
     </div>
 
     <script>
-        const HelloVueApp = {
+        //const HelloVueApp = {
+        //    data() {
+        //        return {
+        //            message: 'Привет, это Vue!'
+        //        }
+        //    }
+        //}
+        //Vue.createApp(HelloVueApp).mount('#hello-vue')
+
+        Vue.createApp({
             data() {
                 return {
-                    message: 'Привет, это Vue!!'
+                    message: 'Привет, это Vue 3!'
+                }
+            },
+            methods: {
+                setMessage(event) {
+                    this.message = event.target.value;
                 }
             }
-        }
-        Vue.createApp(HelloVueApp).mount('#hello-vue')
+        }).mount('#hello-vue');
     </script>
 
 </body>
