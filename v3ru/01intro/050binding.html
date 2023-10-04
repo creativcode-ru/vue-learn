@@ -23,13 +23,21 @@
     <div id="two-way-binding">
         <p>{{ message }}</p>
         <input v-model="message" />
+        <p>Ширина: <input type="number" v-model="width" placeholder="Введите ширину" /></p>
+        <p>Высота: <input type="number" v-model="height" placeholder="Введите высоту" /></p>
+        <p>Площаль прямоугольника: {{ width * height }}</p>
+        <!--
+        Стоит отметить, что директива v-model игнорирует значения атрибутов value, checked и selected полей ввода, 
+        а для установки начального значения следует использовать свойства объекта из кода javascript.
+        -->
     </div>
 
     <script>
         const TwoWayBinding = {
             data() {
                 return {
-                    message: 'Копирование ввода'
+                    message: 'Копирование ввода',
+                    width: 20, height: 10
                 }
             }
         }
