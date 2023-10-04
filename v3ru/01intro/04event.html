@@ -23,13 +23,19 @@
     <div id="event-handling">
         <p>{{ message }}</p>
         <button v-on:click="reverseMessage">Перевернуть сообщение</button>
+        <p>
+            <button v-on:click="counter++">+</button>
+            <span>&nbsp; {{counter}} &nbsp;</span>
+            <button @click="if(counter>0) counter--;">-</button> <button @click="clearCounter(1000), inform()">Сбросить</button> <span>{{status}}</span>
+        </p>
     </div>
 
     <script>
         const EventHandling = {
             data() {
                 return {
-                    message: 'Привет, Vue.js!'
+                    message: 'Привет, Vue.js!',
+                    counter: 0, status: ''
                 }
             },
             methods: {
@@ -38,7 +44,15 @@
                         .split('')
                         .reverse()
                         .join('')
+                },
+                clearCounter(event) {
+                    console.log(event);
+                    this.counter = event
+                },
+                inform() {
+                    this.status = "Время нажатия кнопки: " + new Date().toLocaleString();
                 }
+
             }
         }
 
