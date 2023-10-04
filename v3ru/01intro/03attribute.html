@@ -20,11 +20,21 @@
     </style>
 </head>
 <body>
+
     <div id="bind-attribute" class="demo">
+        <span v-html="heading"></span>
+
         <span v-bind:title="message">
-            Наведи на меня курсор на пару секунд, чтобы
-            увидеть динамически связанное значение title!
+            Наведи на меня курсор на пару секунд, чтобы увидеть динамически связанное значение title!
         </span>
+        <p>
+            Значение переопределено
+            <a v-bind:href="lnk.link" v-bind:title="lnk.title" v-text="lnk.text"></a>
+        </p>
+        <p v-once>
+            Значение фиксировано v-once
+            <a v-once :href="lnk.link" :title="lnk.title" v-text="lnk.text"></a>
+        </p>
     </div>
             <!--
                 Атрибут v-bind называется директивой.<br />
@@ -33,11 +43,17 @@
                 -->
 
     <script>
+        const lnk = { text:'Google', title: 'google.com', link: 'https://google.com' };
         const AttributeBinding = {
             data() {
                 return {
-                    message: 'Страница загружена ' + new Date().toLocaleString()
+                    message: 'Страница загружена ' + new Date().toLocaleString(),
+                    lnk,
+                    heading: '<h2>Заголовок html</h2>'
                 }
+            },
+            mounted() {
+                this.lnk.text ="Гугл"
             }
         }
 

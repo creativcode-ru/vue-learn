@@ -12,18 +12,27 @@
 </head>
 <body>
     <div id="counter">
-        Счётчик: {{ counter }}, и как его остановить?
+        Счётчик: {{ counter }} 
+        <button v-on:click="stopCounter">Остановить</button>
     </div>
 
     <script>
+        var myTimer;
         const Counter = {
             data() {
                 return {
-                    counter: 0
+                    counter: 0,
+                    myTimer
+                }
+            },
+            methods: {
+                stopCounter() {
+                    //this.counter = 0 //просто перезапустит счетчик
+                    clearInterval(this.myTimer) // используем ID, который вернул setInterval()
                 }
             },
             mounted() {
-                setInterval(() => {
+                this.myTimer =setInterval(() => {
                     this.counter++
                 }, 1000)
             }
