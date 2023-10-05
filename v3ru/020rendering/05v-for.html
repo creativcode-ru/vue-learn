@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Изучаем Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div id="app">
+        <h2>v-for="item in items</h2>
+        <ul>
+            <li v-for="name in names">{{ name}}</li>
+        </ul>
+
+        <hr />
+        <ul>
+            <li v-for="user in users">
+                <p>Имя: {{user.name}}</p>
+                <p>Возраст: {{user.age}}</p>
+            </li>
+        </ul>
+
+        <hr />
+        <h2>v-for="(element, index) in array"</h2>
+        <ul>
+            <li v-for="(user, index) in users">{{index + 1}}. {{user.name}}</li>
+        </ul>
+
+        <hr />
+        <h2>v-for="(value, property) in obj"</h2>
+        <ul>
+            <li v-for="user in users">
+                <p v-for="(value,key) in user">{{key}} : {{value}}</p>
+            </li>
+        </ul>
+
+        <hr />
+        <h2>Перебор чисел</h2>
+        <p>
+            <span v-for="n in 10">{{ n }} </span>
+        </p>
+
+        <hr />
+        <h2> v-for и v-if</h2>
+        <p>
+            Если эти директивы используются одновременно на одном элементе html, то <b>v-if</b> имеет больший приоритет, нежели v-for.<br />
+            Чтобы выйти из данной ситуации мы можем обернуть директиву v-for в тег template
+        </p>
+        <ul>
+            <template v-for="user in users">
+                <li v-if="user.age > 25">
+                    <p>Name: {{user.name}}</p>
+                    <p>Age: {{user.age}}</p>
+                </li>
+            </template>
+        </ul>
+
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+Vue.createApp({
+  data() {
+        return {
+            names: ['Tom', 'Sam', 'Alice', 'Kate'],
+            users: [
+                { name: 'Tom', age: 22 },
+                { name: 'Bob', age: 31 },
+                { name: 'Sam', age: 28 }
+            ]
+        }
+  }
+}).mount('#app');
+    </script>
+</body>
+</html>
