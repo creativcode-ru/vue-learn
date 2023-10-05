@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Изучаем Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div id="app">
+        <div v-show="visible">
+            <h2>Заголовок</h2>
+            <p>
+                B отличие от v-if директива v-show не изменяет структуру DOM, а манипулирует значением стилевого свойства display.<br />
+                То есть если условие в v-show возвращает false, то для элемента устанавливается стиль display:none;, <br /> 
+                и тем самым данный элемент скрывается на веб-странице.
+            </p>
+            <p>
+                В то же время манипуляции с DOM через v-if увеличивают накладные расходы и снижают производительность.<br /> 
+                Поэтому в тех ситуациях, когда возможно частое переключение видимости элемента, следует предпочитать v-show.
+            </p>
+        </div>
+        <button v-on:click="visible=!visible">{{visible?'Скрыть':'Отобразить'}}</button>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+Vue.createApp({
+  data() {
+    return { visible: true}
+  }
+}).mount('#app');
+    </script>
+</body>
+</html>
