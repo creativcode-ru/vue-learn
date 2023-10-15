@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Фильтрация массива. Изучаем Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Фильтрация массива</h1>
+    <p>
+        Обычно при фильтрации есть некоторый начальный список, а пользователю же возвращается некоторый временный результат. Начальный же список при этом не изменяется.<br />
+        И для этого во Vue лучше определить привязку к вычисляемому свойству.<br />
+        При вводе значения в текстовое поле происходит повторное вычисление свойства filteredList.
+    </p>
+
+
+    <div id="app">
+        <p><input type="text" v-model="company" /></p>
+        <ul>
+            <li v-for="phone in filteredList">
+                <p>{{ phone.title }} - {{ phone.company }}</p>
+            </li>
+        </ul>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    company: '', //фильтрация по этому полю
+                    phones: [
+                        { title: 'iPhone 12', company: 'Apple' },
+                        { title: 'iPhone 10', company: 'Apple' },
+                        { title: 'Galaxy S20', company: 'Samsung' },
+                        { title: 'Galaxy A10', company: 'Samsung' },
+                        { title: 'Xiaomi Redmi 8', company: 'Xiaomi' }]
+                }
+            },
+            computed: {
+                filteredList() {
+                    let comp = this.company;
+                    return this.phones.filter(function (elem) {
+                        if (comp === '') return true; //Если значение не введено, то возвращаем все элементы из массива phones.
+                        else return elem.company.indexOf(comp) > -1; // свойство представляет результат функции, которая возвращает те объекты, у которых поле company соответствует введенному значению.
+                    })
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
