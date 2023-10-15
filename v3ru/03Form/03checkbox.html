@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>лемент Checkbox. Изучаем Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Элемент Checkbox</h1>
+    <p>
+        Флажок или checkbox представляет элемент управления, который может находиться в двух состояниях: отмеченном и неотмеченном.<br />
+        При установке привязки директива v-model использует его атрибут checked и событие change для отслеживания изменения значения.<br />
+        При этом начальное значение атрибута checked.<br /><br />
+
+        Одиночный флажок может быть привязан к логическому значению true или false:
+    </p>
+    <h2>2</h2>
+    <p>
+        По умолчанию для отмеченного состояния используется значение true, а для неотмеченного - false.<br />
+        Но вместо них можно определить свои собственные значения для обоих состояний и между этими значениями переключаться:
+    </p>
+    <h2>3</h2>
+    <p>
+        Во Vue 3 мы можем сократить эту конструкцию следующим образом:<br />
+        Здесь элемент input применяет два атрибута, поставляемые Vue: true-value и false-value. <br />
+        Эти атрибуты имеют значения соответственно "on" и "off". <br />
+        Однако теперь для этих значений не определены свойства в приложении Vue, и теперь сами эти значения трактуются как строки.<br />
+        И свойство lignt в качестве значения может принимать одно из этих значений: "on" или "off".<br />
+        Соответственно с помощью операции сравнения мы можем узнать, чему равно свойство light: light==='on'.
+    </p>
+
+
+    <div id="app">
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label>
+        <hr />
+        <h2>2</h2>
+        <input type="checkbox" v-model="light" v-bind:true-value="on" v-bind:false-value="off" />
+        <span v-if="light===on">Выключить</span>
+        <span v-else>Включить</span>
+        <hr />
+        <h2>3</h2>
+        <input type="checkbox" v-model="light" true-value="on" false-value="off" />
+        <span v-if="light==='on'">Выключить</span>
+        <span v-else>Включить</span>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    checked: true,
+                    on: true,
+                    off: false,
+                    light: true
+                }
+
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

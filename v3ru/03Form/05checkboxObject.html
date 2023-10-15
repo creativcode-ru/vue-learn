@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>CheckBox, привязка к объекту. Изучаем Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>CheckBox, привязка к объекту</h1>
+    <p>
+        флажок может быть привязан к целому объекту. Для динамической привязки у элемента html применяется атрибут v-bind:value:<br /><br />
+        Здесь динамически для каждого объекта в массиве формируется флажок, а при выборе флажка объект попадет в массив selectedUsers.
+    </p>
+
+
+
+    <div id="app">
+        <template v-for="user in users">
+            <input type="checkbox" v-bind:value="user" v-model="selectedUsers">
+            <label>{{user.name}}</label>
+            <br>
+        </template>
+
+        <ul>
+            <li v-for="user in selectedUsers">{{user.name}} - {{user.age}}</li>
+        </ul>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    users: [
+                        { name: 'Tom', age: 22 },
+                        { name: 'Bob', age: 25 },
+                        { name: 'Sam', age: 28 },
+                        { name: 'Alice', age: 26 }
+                    ],
+                    selectedUsers: []
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

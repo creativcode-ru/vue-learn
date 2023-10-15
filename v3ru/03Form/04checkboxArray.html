@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>CheckBox, привязка к массиву. Изучаем Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>CheckBox, привязка к массиву</h1>
+    <p>
+        Группа флажков может быть привязана к одному массиву. В этом случае при отметке флажка его значение попадает в массив:<br />
+        В данном случае 4 флажка привязаны к массиву selectedUsers. Отметив определенный флажок, мы добавим его значение в массив.
+    </p>
+
+
+    <div id="app">
+        <input type="checkbox" value="Tom" v-model="selectedUsers">
+        <label>Tom</label><br>
+        <input type="checkbox" value="Bob" v-model="selectedUsers">
+        <label>Bob</label><br>
+        <input type="checkbox" value="Sam" v-model="selectedUsers">
+        <label>Sam</label><br>
+        <input type="checkbox" value="Alice" v-model="selectedUsers">
+        <label>Alice</label><br>
+        <span>Выбрано: {{selectedUsers}}</span>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    selectedUsers: []
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
