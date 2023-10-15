@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Radiobutton, привязка к объекту, Изучаем Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Radiobutton, привязка к объекту</h1>
+    <p>
+        Каждый из переключателей может быть привязан к сложному объекту.<br />
+        В этом случае используется атрибут v-bind:value. Результатом выбора соответственно также будет сложный объект:
+    </p>
+    <h2>Radiobutton, привязка к массиву объектов</h2>
+    
+    <p>
+        В случае ранее было бы более оптимально хранить данные в массиве и динамически создавать по элементам массива группу радиокнопок:
+    </p>
+
+
+    <div id="app">
+        <input type="radio" v-bind:value="{name:'Tom', age:22}" v-model="user">
+        <label>Tom</label>
+        <br>
+        <input type="radio" v-bind:value="{name:'Bob', age:25}" v-model="user">
+        <label>Bob</label>
+        <br>
+        <input type="radio" v-bind:value="{name:'Sam', age:28}" v-model="user">
+        <label>Sam</label>
+        <br>
+        <span>Выбрано: {{user.name}} - {{user.age}}</span>
+        <hr />
+        <template v-for="user in users">
+            <input type="radio" v-bind:value="user" v-model="selectedUser">
+            <label>{{user.name}}</label>
+            <br>
+        </template>
+        <span v-if="selectedUser!==null">Выбрано: {{selectedUser.name}} - {{selectedUser.age}}</span>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    user: {},
+                    users: [
+                        { name: 'Tom', age: 22 },
+                        { name: 'Bob', age: 25 },
+                        { name: 'Sam', age: 28 }
+                    ],
+                    selectedUser: null
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Переключатели (radiobutton). Изучаем Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Переключатели (radiobutton)</h1>
+    <p>
+        При установке привязки, также как и для элементов input type="checkbox", директива v-model использует его атрибут checked и событие change для отслеживания изменения значения, а начальное значение атрибута checked.<br />
+
+        Переключатели привязываются к одному свойству. При выборе переключателя связанное свойство получает выбранное значение:
+    </p>
+
+
+
+    <div id="app">
+        <input type="radio" value="Tom" v-model="user">
+        <label>Tom</label>
+        <br>
+        <input type="radio" value="Bob" v-model="user">
+        <label>Bob</label>
+        <br>
+        <input type="radio" value="Sam" v-model="user">
+        <label>Sam</label>
+        <br>
+        <span>Выбрано: {{ user }}</span>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    user: ''
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
