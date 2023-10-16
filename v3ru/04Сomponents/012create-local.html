@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Локальная регистрация компонентов Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Локальная регистрация компонентов</h1>
+    <p>
+        При локальной регистрации компоненты задаются как обычные объкты JavaSc         * 
+        ript с необходимыми конфигурационными настройками.<br />
+        Затем для локальной регистрации компоненты передаются в объекта Vue устанавливается через свойство components:
+    </p>
+
+    <div id="app">
+        <component-a></component-a>
+        <component-b></component-b>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const ComponentA = {
+            template: '<h2>Component A</h2>'
+        }
+        const ComponentB = {
+            template: '<h2>Component B</h2>'
+               }
+        /* В данном случае для каждого компонента определена только одна конфигурационная настройка - параметр template.*/
+
+        const app = Vue.createApp({
+            components: {
+                'component-a': ComponentA,
+                'component-b': ComponentB
+            }
+        });
+        /* Затем они передаются параметру components в объект приложения Vue: 
+           Здесь каждому компоненту назначается определеное имя, 
+           например, объекту ComponentA назначается имя "component-a" 
+           и соответственно для его рендеринга на веб-странице будет использоваться элемент <component-a>.
+        */
+
+        app.mount('#app');
+    </script>
+
+
+</body>
+</html>

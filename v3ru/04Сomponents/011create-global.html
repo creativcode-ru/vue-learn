@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Глобальная регистрация. Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Глобальная регистрация</h1>
+    <p>
+        Глобальные компоненты в отличие от локальных доступны для любого другого компонента в приложении Vue.<br />
+        Тогда один компонент может использовать другой, объявленный глобально.
+    </p>
+
+
+    <div id="app">
+        <component-a></component-a>
+        <component-b></component-b>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const app = Vue.createApp({});
+
+        app.component('component-a', {
+            template: '<h2>Component A</h2>'
+        });
+        app.component('component-b', {
+            template: '<h3>Component B</h3><component-a></component-a>'
+        });
+        app.mount('#app');
+    </script>
+</body>
+</html>
