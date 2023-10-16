@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Модификаторы полей ввода, .trim. Изучаем Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Модификаторы полей ввода, .trim</h1>
+    <p>
+        Модификатор .trim автоматически обрезает начальные и концевые пробелы при вводе строки:
+    </p>
+
+
+    <div id="app">
+        <!--<input v-model.trim="message">-->
+        <input v-model.lazy.trim="message">
+        <span>Введено: {{message}}</span>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    message: ''
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
