@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Компоненты Vue 3, Параметр methods</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Параметр methods</h1>
+    <p>
+        Кроме состояния компоненты могут определять поведение в виде методов, которые определяются через параметр methods, как и в объектах Vue:
+    </p>
+
+    <div id="app">
+        <counter></counter>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+const app = Vue.createApp({});
+app.component('counter', {
+    data(){
+        return {
+            header: 'Counter Program',
+            count:0
+        }
+    },
+    template:`<div><h2>{{header}}</h2>
+                <button v-on:click="increase">+</button>
+                <span>{{count}}</span>
+            </div>`,
+    methods:{
+        increase:function(){
+            this.count++;
+        }
+    }
+});
+app.mount('#app');
+    </script>
+</body>
+</html>

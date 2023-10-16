@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Параметр data</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Параметр data</h1>
+    <p>
+        Компоненты могут содержать некоторые данные или состояние в виде параметра data - в принципе как и объекты приложения Vue.
+    </p>
+    <p>
+        Подобным образом можно определять данные в локально регистрируемых компонентах.
+    </p>
+    <p>
+        Может возникнуть вопрос, а что если и объект приложения, и компонент этого приложения одновременно определяют свойство с одинаковым называнием.<br />
+        В этом случае компонент будет использовать свое собственное свойство.
+    </p>
+
+    <div id="app">
+        <counter></counter>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+const app = Vue.createApp({});
+app.component('counter', {
+    data(){
+        return {
+            header: 'Counter Program'
+        }
+    },
+    template:'<div><h2>{{header}}</h2></div>'
+});
+app.mount('#app');
+    </script>
+</body>
+</html>
