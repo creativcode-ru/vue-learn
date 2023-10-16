@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Список с множественным выбором. Изучаем Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Список с множественным выбором</h1>
+    <p>
+        Список select с множественным выбором можно связать с массивом, в который попадут все выбранные значения:
+    </p>
+
+
+
+    <div id="app">
+        <select v-model="users" multiple>
+            <option>Tom</option>
+            <option>Bob</option>
+            <option>Sam</option>
+            <option>Alice</option>
+        </select>
+        <p>Выбрано: {{users}}</p>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    users: []
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Привязка к массиву объектов. Изучаем Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Привязка к массиву объектов</h1>
+    <p>
+        Нередко источником для элементов списка служит массив, элементы которого нередко представляют сложные объекты. Для динамического создания списка из массива применяется директива v-for, а для привязки значения к элементу списка - атрибут v-bind:value:<br />
+        В данном случае в списке отображается значение свойства name объекта из массива и это же свойство name будет использоваться в качестве значения при выборе элемента.
+    </p>
+    <h2>Однако мы можем выбирать и весь объект в целом:</h2>
+    <p>
+        В данном случае выбранный объект из массива будет попадать в свойство selection.
+    </p>
+
+    <div id="app">
+        <select v-model="selectedUserName">
+            <option v-for="user in users" v-bind:value="user.name">{{user.name}}</option>
+        </select>
+        <span>Выбрано: {{selectedUserName}}</span>
+        <hr />
+        <select v-model="selectedUser">
+            <option v-for="user in users" v-bind:value="user">{{user.name}}</option>
+        </select>
+        <span v-if="selectedUser!==null">Выбрано: {{selectedUser.name}} - {{selectedUser.age}}</span>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    users: [
+                        { name: 'Tom', age: 22 },
+                        { name: 'Bob', age: 25 },
+                        { name: 'Sam', age: 28 },
+                        { name: 'Alice', age: 26 }
+                    ],
+                    selectedUserName: '',
+                    selectedUser: null
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
