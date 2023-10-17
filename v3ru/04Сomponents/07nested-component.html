@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Вложенные компоненты Vue 3</title>
+    <meta charset="utf-8" />
+    <style>
+        .userdetails {
+            border-bottom: 1px solid #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>Вложенные компоненты</h1>
+    <p>
+        Одни компоненты (родительские компоненты) могут содержать другие (дочерние компоненты).<br />
+        Например, один компонент выводит список объект, а для вывода отдельного объекта используется еще один компонент:
+    </p>
+    <p>
+        В принципе мы могли бы определить все в одном компоненте,<br />
+        однако выделение отдельного компонента userdetails позволяет развивать и обновлять его разметку отдельно от родительского компонента.<br />
+        Например, если потребуется изменить структуру разметки html в компоненте, <br />
+        то достаточно это сделать в коде компонента userdetails. <br />
+        К тому же мы можем повторно использовать данный компонент в других компонентах и частях программы.
+    </p>
+
+
+    <div id="app">
+        <userslist :users="users"></userslist>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+const app = Vue.createApp({
+    data(){
+        return {
+            users: [{
+            name: 'Tom',
+            age: 18
+        },{
+            name: 'Bob',
+            age: 23
+        },{
+            name: 'Alice',
+            age: 21
+        }]
+        }
+    }
+});
+
+app.component('userdetails', {
+    props: ["user"],
+    template: `<div class="userdetails">
+                    <p>Name: {{user.name}}</p>
+                    <p>Age: {{user.age}}</p>
+                </div>`
+});
+app.component('userslist', {
+    props: ["users"],
+    template: `<div>
+                <userdetails v-for="user in users" :key="user.name" :user="user"></userdetails>
+            </div>`
+});
+app.mount('#app');
+    </script>
+</body>
+</html>
