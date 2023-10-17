@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Компоненты Vue 3. Валидация свойств props</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Валидация свойств props</h1>
+    <p>
+        Для более точной валидации свойства для него можно задать ряд параметров:<br />
+        type: тип свойства<br />
+        required: если этот параметр имеет значение true, то для данного свойства обязательно надо ввести значение<br />
+        default: значение по умолчанию, которое устанавливается, если для свойства извне не передается никакого значения<br />
+        validator: функция, которая валидирует значение свойства. Если значение корректно, то функция валидатора должна возвращать true, иначе возвращается false.<br />
+    </p>
+
+
+    <div id="app">
+        <input type="text" v-model="name" /><br><br>
+        <input type="number" v-model.number="age" /><br><br>
+        <user :name="name" :age="age"></user>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+const app = Vue.createApp({
+    data(){
+        return { name: '', age: 18 }
+    }
+});
+
+app.component('user', {
+  props: {
+    name: {
+        type: String,
+        required: true,
+        default: 'Tom',
+        validator: function(value){
+            return value!='admin' && value!='';
+        }
+      },
+      age: {
+        type: Number,
+        required: true,
+        default: 18,
+        validator: function(value){
+            return value >= 0 && value < 100;
+        }
+    }
+  },
+  template: '<div><h2>User</h2><p>Name: {{name}}</p><p>Age: {{age}}</p></div>'
+});
+app.mount('#app');
+    </script>
+</body>
+</html>
