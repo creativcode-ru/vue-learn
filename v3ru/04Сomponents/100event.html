@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Создание событий. Компоненты Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body style="max-width:1024px;">
+    <h1>Создание событий</h1>
+    <p>
+        Общая схема создания и вызова кастомного события выглядит следующим образом. 
+        Родительский компонент устанавливает у дочернего компонента атрибут v-on:название_события:
+    </p>
+    <p>child-component v-on:myevent="action"</p>
+    <p>
+        Где myevent - название события, которые мы сами определяем и кото     * 
+    рое будет отлавливать родительский компонент.
+        А action - некоторы действия (methods), которые будут вызываться при возникновении события myevent.
+    </p>
+    <p>
+        Дочерний компонент, в свою очередь, будет генерировать событие с помощью вызова в коде this.$emit(myevent), 
+        где "myevent" - это имя обытия, которое отслеживает родительский компонент с помощью атрибута v-on:myevent="action".
+    </p>
+
+    <div id="app">
+        <h2>Hello, {{name}}</h2>
+        <useredit :user="name" v-on:userchange="change"></useredit>
+        <!--определяется событие userchange
+
+        То есть поскольку в дочернем компоненте генерируется событие userchange, 
+        то соответственно здесь и атрибут имеет определение v-on:userchange. Э
+        тому событию сопоставлен метод change:
+        -->
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+const app = Vue.createApp({
+    data(){
+        return {
+            name: 'Tom'
+        }
+    },
+    methods:{
+        change(value){
+            this.name = value;
+        }
+        /* Параметр value представляет то значение, 
+        которое передается в дочернем компоненте через вызов this.$emit('userchange', this.userName);, 
+        то есть this.userName.
+        */
+    }
+});
+
+app.component('useredit', {
+    props: ["user"],
+    data() {
+      return { userName: this.user}
+    },
+    template: '<div><input type="text" v-model="userName" v-on:input="onUserChange" /><p>Name: {{userName}}</p></div>',        
+    /* В шаблоне компонента элемент ввода связан двусторонней привязкой со значением со свойством userName. 
+      Также для этого элемента установлен обработчик события input: 
+      
+      То есть при вводе в это текстовое поле будет вызываться метод onUserChange. 
+      В этом методе через вызов this.$emit('userchange', this.userName); 
+      генерируем событие userchange и передаем в этом событии измененное значение свойства userName 
+      (так как это свойство связано двусторонней привязкой с полем ввода, то при вводе в текстовое поле изменится и свойство user).
+      
+      */
+    methods: {
+        onUserChange(){
+            this.$emit('userchange', this.userName);
+        }
+        /* Первый параметр метода this.$emit() должен представлять название события. 
+        В качестве последующих параметров мы можем передать произвольное количество данных
+        - в данном случае только обновленное имя пользователя.
+        */
+    }
+});
+app.mount('#app');
+    </script>
+</body>
+</html>

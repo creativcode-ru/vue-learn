@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Компоненты Vue 3, Изменение массивов</title>
+    <meta charset="utf-8" />
+</head>
+<body style="max-width:1024px;">
+    <h1>Изменение массивов</h1>
+    <p>
+        В отличие от строк, чисел, логических значений true и false массивы и сложные объекты передаются в компоненты по ссылке. 
+        То есть получив ссылку, можно управлять значением, которое хранится по этой ссылке.
+    </p>
+    <p>
+        То есть мы можем либо напрямую передавать ссылку в дочерний компонент и в нем изменять значения в массиве, 
+        либо генерировать в дочернем компоненте событие, которое передается родительскому объекту.
+    </p>
+
+    <div id="app">
+        <h2>Список пользователей</h2>
+        <userform :users="users"></userform>
+        <div>
+            <useritem v-for="(user, index) in users"
+                      :user="user"
+                      :index="index"
+                      :key="index"
+                      v-on:userdelete="remove">
+            </useritem>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+const app = Vue.createApp({
+    data(){
+        return {
+            users:[
+                {name: 'Tom', age: 23},
+                {name: 'Bob', age: 26},
+                {name: 'Alice', age: 28}
+            ]
+        }
+    },
+
+    methods:{
+        remove(index){
+            this.users.splice(index, 1)
+        }
+    }
+});
+
+/* Для добавления нового элемента в массив определен компонент userform, который представляет форму добавления */
+app.component('userform', {
+    props: ["users"],
+    data() {
+        return {
+            user: {name:'', age:18}
+        }
+    },
+    template: `<div>
+                    <input type="text" v-model="user.name" />
+                    <input type="number" v-model="user.age" />
+                    <button  v-on:click="userAdd">Add</button>
+                </div>`,
+                /*  Компонент userform получает ссылку на массив и при нажатии на кнопку вызывает метод userAdd(), 
+                в котором через полученную ссылку в массив добавляется новый элемент.
+                */
+    methods: {
+        userAdd(event){
+            this.users.push({name:this.user.name, age: this.user.age});
+        }
+    }
+});
+
+/* Для вывода одного элемента из массива определен компонент useritem, который также содержит кнопку для удаления элемента. 
+*/
+app.component('useritem', {
+    props: ["user", "index"],
+    template: `<div>
+                    <p>Name: {{user.name}} <br> Age: {{user.age}}</p>
+                    <button  v-on:click="userDelete(index)">Delete</button>
+                </div>`,
+                /* Компонент useritem использует другую технику. 
+                Он получает элемент для вывода и по нажатию на кнопку удаления генерирует событие userdelete, 
+                передавая с ним индекс удаляемого элемента. 
+                Родительский объект получает это событие с индексом и по индексу собственно удаляет элемент из массива. */
+    methods: {
+        userDelete(index){
+            this.$emit('userdelete', index);
+        }
+    }
+});
+
+app.mount('#app');
+    </script>
+</body>
+</html>

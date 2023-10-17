@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Компоненты Vue 3. Изменение объектов</title>
+    <meta charset="utf-8" />
+</head>
+<body style="max-width:1024px;">
+    <h1>Изменение объектов</h1>
+    <p>
+       
+    </p>
+
+    <div id="app">
+        <h2>Список пользователей</h2>
+        <userform :user="user"></userform>
+        <div>
+            <useritem v-for="(user, index) in users"
+                      :key="index"
+                      :user="user"
+                      :index="index"
+                      v-on:userchange="change">
+            </useritem>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+const app = Vue.createApp({
+    data(){
+        return {
+            users:[
+                {name: 'Tom', age: 23},
+                {name: 'Bob', age: 26},
+                {name: 'Alice', age: 28}
+            ],
+            user:{}
+        }
+    },
+
+    methods:{
+        change(index){
+            this.user = this.users[index];
+        }
+    }
+});
+
+/* Здесь компонент userform через props получает объект user, 
+   свойства которого связываются двухсторонней привязкой с полями ввода. 
+   При изменении введеных значений в этих полях изменится и значение в массиве: 
+   */
+app.component('userform', {
+    props: ["user"],
+    template: `<div>
+                    <input type="text" v-model="user.name" />
+                    <input type="number" v-model="user.age" />
+                </div>`,
+});
+
+app.component('useritem', {
+    props: ["user", "index"],
+    template: `<div>
+                    <p>Name: {{user.name}} <br> Age: {{user.age}}</p>
+                    <button  v-on:click="userChange(index)">Change</button>
+                </div>`,
+    methods: {
+        userChange(index){
+            this.$emit('userchange', index);
+        }
+    }
+});
+
+app.mount('#app');
+    </script>
+</body>
+</html>
