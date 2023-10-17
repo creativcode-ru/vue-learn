@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Компоненты Vue 3. Передача массивов в props</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Передача массивов в props</h1>
+    <p>
+        Здесь извне компоненту передается массив users, состоящий из сложных объектов. <br />
+        В компоненте мы можем с помощью директивы v-for пробежаться по всему массиву и получить отдельные его элементы.
+    </p>
+
+
+    <div id="app">
+        <userslist :users="users"></userslist>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+const app = Vue.createApp({
+    data(){
+        return {
+            users: [{
+            name: 'Tom',
+            age: 18
+        },{
+            name: 'Bob',
+            age: 23
+        },{
+            name: 'Alice',
+            age: 21
+        }]
+        }
+    }
+});
+
+app.component('userslist', {
+  //props: ["users"],
+    props: {
+        users: {
+            type: Array,
+            default: function () {
+                return []
+            }
+        }
+    },
+  template: `<ul>
+                <li v-for="user in users">
+                    <p>Name: {{user.name}}</p>
+                    <p>Age: {{user.age}}</p>
+                </li>
+            </ul>`
+});
+app.mount('#app');
+    </script>
+</body>
+</html>
