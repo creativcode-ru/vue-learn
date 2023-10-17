@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Разделяемое состояние компонентов Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Разделяемое состояние компонентов</h1>
+    <p>
+    </p>
+
+
+    <div id="app">
+        <counter></counter>
+        <counter></counter>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+let globalData = {
+        header: 'Counter Program',
+        count:0
+};
+const app = Vue.createApp({});
+app.component('counter', {
+    data() {
+        /* каждый счетчик использует собственное состояние: */
+        //return {
+        //    header: 'Counter Program',
+        //    count:0
+
+        //}
+       
+        return globalData;  /* общее состояние */
+    },
+    template:`<div><h2>{{header}}</h2>
+                <button v-on:click="increase">+</button>
+                <span>{{count}}</span>
+            </div>`,
+    methods:{
+        increase:function(){
+            this.count++;
+        }
+    }
+});
+app.mount('#app');
+    </script>
+</body>
+</html>
