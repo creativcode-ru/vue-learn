@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Передача функций обратного вызова в компоненты Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body style="max-width:1024px;">
+    <h1>Передача функций обратного вызова в компоненты</h1>
+    <p>
+        Родительские компоненты могут определять функции, а вызываются они в дочерних компонентах.
+    </p>
+    <p>
+        В данном случае объект приложения Vue определяет некоторый счетчик - переменную count. 
+        И также определеяет метод increase() для увеличения этого счетчика. 
+        Однако сам этот метод вызывается в дочернем компоненте counter.
+        Сам ссылка на метод increase передается в компонент counter как обычное свойство под названием "changefn":
+    </p>
+
+
+    <div id="app01">
+        <h3>Value {{ count }}</h3>
+        <counter :changefn="increase"></counter>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return { count: 0 }
+            },
+            methods: {
+                increase() {
+                    this.count++;
+                }
+            }
+        });
+
+        app.component('counter', {
+            props: ["changefn"],
+            template: `<div><button v-on:click="changefn()">+</button></div>`
+        });
+        app.mount('#app01');
+    </script>
+
+    <!--===================================== Пример 2 ===========================================-->
+
+
+
+</body>
+</html>
