@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Миксины Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body style="max-width:1024px;">
+    <h1>Передача функций обратного вызова в компоненты</h1>
+    <p>
+        Миксины предсталяют способ передачи функциональности из одной сущности в другую, аналогичный наследованию.
+        Миксин может содержать любые свойства. Если компонент использует миксин,
+        то все свойства миксина добавляются к свойствам данного компонента.
+    </p>
+
+    <h1>Сходная функциональность</h1>
+    <p>
+        Здесь определено два компонента.
+        Функциональность обоих компонентов в некоторых моментах сходится.
+        И весь этот общий функционал можно вынести в миксин:
+    </p>
+    <div id="app01">
+        <light></light>
+        <enabled></enabled>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+const app01 = Vue.createApp({});
+
+app01.component('light', {
+  template: `<div><h3>{{header}}</h3>
+                <button v-on:click="toggle" v-show="state">{{on}}</button>
+                <button v-on:click="toggle" v-show="!state">{{off}}</button>
+                </div>`,
+  data(){
+    return { state: true, on: "ON", off: "OFF"}
+  },
+  methods:{
+    toggle(){
+        this.state= !this.state;
+    }
+  },
+  computed:{
+    header(){
+        return this.state==true?"Свет включен":"Свет выключен";
+    }
+  }
+});
+app01.component('enabled', {
+  template: `<div>Состояние: {{ state?"доступ открыт":"доступ закрыт" }}
+                <button v-on:click="toggle" v-show="state">{{on}}</button>
+                <button v-on:click="toggle" v-show="!state">{{off}}</button>
+                </div>`,
+  data(){
+    return { state: true, on: "ON", off: "OFF"}
+  },
+  methods:{
+    toggle(){
+        this.state= !this.state;
+    }
+  }
+});
+app01.mount('#app01');
+    </script>
+
+    <!--===================================== Пример 2 ===========================================-->
+    <h1>Миксин</h1>
+    <p>
+        Теперь общий код вынесен в отдельный объект - миксин toggleMixin.
+        С помощью параметра mixins миксин передается компоненту:<br />
+        mixins:[toggleMixin]<br />
+    </p>
+    <p>
+        Данный параметр представляет массив, поэтому мы можем передать несколько миксинов. 
+        В итоге функциональность миксина будет объединяться с функциональностью, которая определена непосредственно в компоненте. 
+        А результат работы кода будет тот же самый, что и в предыдущем примере.<br />
+
+        И если потребуется изменить логику нажатия кнопок обоих компонентов, достаточно это будет сделать в одном месте - в миксине.<br />
+
+        Следует отметить, что если миксины и компоненты определяют методы и свойства с одним и тем же именем, 
+        то подобная функциональность миксинов отбрасывается.
+    </p>
+
+    <div id="app">
+        <light></light>
+        <enabled></enabled>
+    </div>
+    <!--<script src="https://unpkg.com/vue@next"></script>-->
+    <script>
+const toggleMixin = {
+    data(){
+        return { state: true, on: "ON", off: "OFF"}
+    },
+    methods:{
+        toggle(){
+            this.state= !this.state;
+        }
+    },
+};
+
+const app = Vue.createApp({});
+
+app.component('light', {
+    template: `<div><h3>{{header}}</h3>
+                <button v-on:click="toggle" v-show="state">{{on}}</button>
+                <button v-on:click="toggle" v-show="!state">{{off}}</button>
+                </div>`,
+    mixins:[toggleMixin],
+    computed:{
+        header(){
+            return this.state==true?"Свет включен":"Свет выключен";
+        }
+    }
+});
+app.component('enabled', {
+  template: `<div>Состояние: {{ state?"доступ открыт":"доступ закрыт" }}
+                <button v-on:click="toggle" v-show="state">{{on}}</button>
+                <button v-on:click="toggle" v-show="!state">{{off}}</button>
+                </div>`,
+    mixins:[toggleMixin]
+});
+app.mount('#app');
+    </script>
+
+</body>
+</html>

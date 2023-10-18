@@ -11,12 +11,15 @@
         Родительские компоненты могут определять функции, а вызываются они в дочерних компонентах.
     </p>
     <p>
-        В данном случае объект приложения Vue определяет некоторый счетчик - переменную count. 
-        И также определеяет метод increase() для увеличения этого счетчика. 
+        В данном случае объект приложения Vue определяет некоторый счетчик - переменную count.
+        И также определеяет метод increase() для увеличения этого счетчика.
         Однако сам этот метод вызывается в дочернем компоненте counter.
         Сам ссылка на метод increase передается в компонент counter как обычное свойство под названием "changefn":
     </p>
-
+    <p>
+        Таким образом, в самих дочерних компонентах никаких действий по управлению массивом и объектами и по генерации событий не определено. 
+        Дочерние компоненты просто вызывают те методы, которые определены в родительском объекте.
+    </p>
 
     <div id="app01">
         <h3>Value {{ count }}</h3>
@@ -24,7 +27,7 @@
     </div>
     <script src="https://unpkg.com/vue@next"></script>
     <script>
-        const app = Vue.createApp({
+        const app01 = Vue.createApp({
             data() {
                 return { count: 0 }
             },
@@ -35,15 +38,89 @@
             }
         });
 
-        app.component('counter', {
+        app01.component('counter', {
             props: ["changefn"],
             template: `<div><button v-on:click="changefn()">+</button></div>`
         });
-        app.mount('#app01');
+        app01.mount('#app01');
     </script>
 
     <!--===================================== Пример 2 ===========================================-->
 
+    <h2>2</h2>
+    <p>
+        Объект Vue выводит на страницу массив элементов и определяет два метода для управления элементами: add (для добавления) и remove (для удаления).
+    </p>
+
+    <div id="app">
+        <h2>Список пользователей</h2>
+        <userform :addfn="add"></userform>
+        <div>
+            <useritem v-for="(user, index) in users"
+                      :user="user"
+                      :key="index"
+                      :index="index"
+                      :removefn="remove">
+            </useritem>
+        </div>
+    </div>
+    <!--<script src="https://unpkg.com/vue@next"></script>-->
+    <script>
+const app = Vue.createApp({
+    data(){
+        return {
+            users:[
+                {name: 'Tom', age: 23},
+                {name: 'Bob', age: 26},
+                {name: 'Alice', age: 28}
+            ]
+        }
+    },
+    methods:{
+        remove(index){
+            this.users.splice(index, 1);
+        },
+        add(user){
+            this.users.push(user);
+        }
+    }
+});
+
+
+/* Для добавления нового элемента определен компонент userform, который представляет форму с полями ввода. */
+app.component('userform', {
+    props: ["addfn"], //Причем функция addfn определена в компоненте userform через props 
+    data() {
+        return {
+            user: {name:'', age:18}
+        }
+    },
+    template: `<div>
+                    <input type="text" v-model="user.name" />
+                    <input type="number" v-model="user.age" />
+                    <button  v-on:click="addfn({name:user.name, age: user.age})">Add</button>
+                </div>`
+});
+        /* В этот компонент передается метод add в виде функции addfn 
+           При нажатии на кнопку эта функция будет вызываться, и ей будут передаваться введенные данные. 
+           Что фактически приведет к вызову метода add в родительском объекте Vue.
+        */
+
+
+/*
+useritem получает метод remove в виде функции removefn, 
+которая также определяется через props. При нажатии на кнопку удаления вызывается функция removefn, 
+ей передается индекс удаляемого элемента, и фактически будет идти вызов метода remove из объекта Vue.
+*/
+app.component('useritem', {
+    props: ["user", "index", "removefn"],
+    template: `<div>
+                    <p>Name: {{user.name}} <br> Age: {{user.age}}</p>
+                    <button  v-on:click="removefn(index)">Delete</button>
+                </div>`
+});
+app.mount('#app');
+    </script>
 
 
 </body>

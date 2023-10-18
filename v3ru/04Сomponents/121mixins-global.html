@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Глобальные миксины Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body style="max-width:1024px;">
+    <h1>Глобальные миксины</h1>
+    <p>
+        Vue 3 позволяет задавать миксины глобально, то есть сразу для всех компонентов. Для этого используется метод mixin() объекта приложения Vue:
+    </p>
+    <p>
+        В данном случае глобальный миксин использует событие created и выводит на консоль браузера строку:<br />
+        Поскольку в данном случае определен один компонент и объект приложения Vue, то глобальный миксин будет вызываться два раза.
+    </p>
+
+    <div id="app">
+        <message></message>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const app = Vue.createApp({});
+
+        app.component('message', {
+            template: `<h2>Hello</h2>`
+        });
+        app.mixin({
+            created() {
+                console.log("Global mixin has been created");
+            }
+        })
+        app.mount('#app');
+    </script>
+</body>
+</html>
