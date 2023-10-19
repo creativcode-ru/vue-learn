@@ -5,6 +5,8 @@ https://v3.ru.vuejs.org/ru/guide/introduction.html#%D1%87%D1%82%D0%BE-%D1%82%D0%
 
 Основы Vue 3 https://metanit.com/web/vue/
 
+Учебник по фреймворку Vue3 https://code.mu/ru/javascript/framework/vue/book/prime/
+
 Изучение Vue.js в 2023 году: дорожная карта разработчика
 https://tproger.ru/articles/izuchenie-vue-js-v-2021-godu-dorozhnaja-karta-razrabotchika
 
