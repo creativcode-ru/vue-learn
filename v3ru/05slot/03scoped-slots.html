@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Слоты с ограниченной областью видимости Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body style="max-width:1024px;">
+    <h1>Слоты с ограниченной областью видимости</h1>
+    <p>
+        Слоты с ограниченной областью видимости (scoped slots) позволяют передавать данные между слотом и родительским компонентом.
+        Подобные слоты определяют шаблон, в который можно передавать данные из дочернего компонента. И эти данные ограничены слотом.
+        <br />
+        Для определения шаблона в родительском компоненте применяется элемент<br />
+        template<br />
+        в котором устанавливается специальный атрибут v-slot:имя_слота="данные".
+        Значение этого атрибута - название объекта с данными, которые передаются от дочернего компонента.
+    </p>
+
+    <div id="app01">
+        <user>
+            <template v-slot:default="props">
+                <h3>Данные о пользователе</h3>
+                <p>Имя: {{ props.userinfo.name }}</p>
+                <p>Возраст: {{ props.userinfo.age }}</p>
+            </template>
+            <!--
+                        В дочернем компоненте для слота не указано имя, поэтому по умолчанию его имя будет "default".
+                        Поэтому для получения данных из дочернего компонента применяется атрибут v-slot:default,
+                        то есть v-slot:название_слота.
+                        Значение этого атрибута props, указывает, что внутри шаблона все переданные данные мы сможем получить через ссылку props.
+                        Далее внутри шаблона мы можем обратиться к переданным данным: props.userinfo.name.
+
+            -->
+        </user>
+    </div>
+    <hr />
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const app01 = Vue.createApp({});
+
+        app01.component('user', {
+            data() {
+                return { user: { name: 'Tom', age: 36 } }
+            },
+            template: `<div>
+                                <slot v-bind:userinfo="user"></slot>
+                        </div>`
+        });
+        /*  дочерний компонент через слот передает данные пользователя:
+            <slot v-bind:userinfo="user"></slot>
+            Здесь устанавливается привязка.
+            То есть через слот в родительский компонент мы передаем объект user.
+            В родительском компоненте мы можем получить этот объект через userinfo.
+        */
+
+        app01.mount('#app01');
+    </script>
+
+    <!--===================================== Пример 2 ===========================================-->
+    <h3>2</h3>
+    <p>
+        Пример представляет использование списков, где родительский компонент может определить шаблон для элемента списка:
+    </p>
+
+    <div id="app">
+        <userslist>
+            <template v-slot:userdetails="props">
+                <div>
+                    <p>Имя: {{ props.userinfo.name}}</p>
+                    <p>Возраст: {{ props.userinfo.age }}</p>
+                </div>
+            </template>
+        </userslist>
+    </div>
+<!--    <script src="https://unpkg.com/vue@next"></script>-->
+    <script>
+        const app = Vue.createApp({});
+
+        app.component('userslist', {
+            data() {
+                return {
+                    users: [
+                        { name: 'Tom', age: 36 },
+                        { name: 'Sam', age: 39 },
+                        { name: 'Bob', age: 25 }
+                    ]
+                }
+            },
+            template: `<ul>
+                    <li v-for="user in users">
+                        <slot name="userdetails" v-bind:userinfo="user"></slot>
+                    </li>
+                </ul>`
+        });
+        app.mount('#app');
+    </script>
+</body>
+</html>

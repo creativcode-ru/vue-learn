@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Именованные слоты Vue 3</title>
+    <meta charset="utf-8" />
+</head>
+<body style="max-width:1024px;">
+    <h1></h1>
+    <p>
+        Иногда возникает необходимость определить в компоненте несколько слотов, которые могли бы иметь разное содержимое. 
+        В этом случае каждому слоту можно назначить определенное имя и через это имя передавать в него некоторый контент 
+        из родительского компонента. Для этого в элементе slot используется атрибут name.
+    </p>
+    <p>
+        В родительском компоненте для слотов передается содержимое, которое оборачивается в элемент template.
+        У этого элемента атрибут v-slot принимает имя слота, на место которого необходимо вставить содержимое.
+    </p>
+
+    <div id="app">
+        <container>
+            <!--<template v-slot:header>
+                <h1>Заголовок статьи</h1>
+            </template>-->
+
+            <template v-slot:default>
+                <p>Первый абзац.</p>
+                <p>Второй абзац.</p>
+            </template>
+
+            <!--<template v-slot:footer>
+                <p>Для более подробной информации напишите по адресу contacts@gmail.com</p>
+            </template>-->
+        </container>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const app = Vue.createApp({});
+/* 
+        app.component('container', {
+            template: `<div>
+                    <header>
+                        <slot name="header"></slot>
+                    </header>
+                    <article>
+                        <slot></slot>
+                    </article>
+                    <footer>
+                        <slot name="footer"></slot>
+                    </footer>
+                </div>`
+        });*/
+
+        app.component('container', {
+            template: `<div>
+                <header>
+                    <slot name="header"><h2>Заголовок по умолчанию</h2>
+                    <p>Дата статьи: {{ new Date().toLocaleDateString() }}</p></slot>
+                </header>
+                <article>
+                    <slot></slot>
+                </article>
+                <footer>
+                    <slot name="footer"><h5>Copyright©2020</h5></slot>
+                </footer>
+            </div>`
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
