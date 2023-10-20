@@ -1,23 +1,51 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Изучаем Vue 3</title>
+    <title>Показ по условию.Изучаем Vue 3</title>
     <meta charset="utf-8" />
     <!-- https://metanit.com/web/vue/2.1.php -->
 </head>
-<body>
-    <div id="app">
+<body style="max-width:1024px;">
+    <h1>Показ по условию</h1>
+    <p>
+        v-if<br />
+        параметром она принимает любое свойство объекта data. Если это свойство имеет значение true - то элемент будет показан, а если false - то скрыт.
+    </p>
+
+
+    <div id="app01">
         <p v-if="visible">Первый параграф</p>
         <p v-else>Второй параграф</p>
         <button @click="visible=!visible">{{visible?'К параграфу 2':'К параграфу 1'}}</button>
+
+        <!--===================================== Пример 2 ===========================================-->
+        <hr />
+        <h3>Смена текста переключателя</h3>
+        <p>
+            <button @click="toggle">
+                {{ visible ? 'hide' : 'show' }}
+            </button>
+        </p>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
     <script>
-Vue.createApp({
-  data() {
-    return { visible: true }
-  }
-}).mount('#app');
+        Vue.createApp({
+            data() {
+                return {
+                    visible: true,
+                    hide:"скрыть",  show:"показать"
+                }
+            },
+
+            methods: {
+                toggle: function () {
+                    this.visible = !this.visible;
+                }
+            },
+        }).mount('#app01');
     </script>
+
+
+   
 </body>
 </html>
